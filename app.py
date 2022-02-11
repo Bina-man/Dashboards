@@ -1,5 +1,3 @@
-from operator import mod
-from tkinter import font
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
