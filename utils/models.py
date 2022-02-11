@@ -1,5 +1,4 @@
 import streamlit as st
-from torch import unsafe_chunk
 
 
 html_temp = """
@@ -101,4 +100,4 @@ class models:
         return html_temp.format(self.value, self.parameters, self.accuracy_0[0], self.accuracy_0[1])
 
 def display_models(fea):
-    st.markdown(models(fea),unsafe_allow_html=True)
+    st.markdown(models(fea), unsafe_allow_html=True)

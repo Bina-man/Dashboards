@@ -4,3 +4,6 @@ streamlit==0.74.1
 plotly==4.14.3
 seaborn
 Pillow==8.1.2
+matplotlib==3.1.1
+joblib==0.13.2
+
