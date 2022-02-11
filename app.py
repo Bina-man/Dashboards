@@ -5,7 +5,7 @@ import seaborn as sns
 from utils.features import *
 from utils.models import *
 import numpy as np
-import joblib
+# import joblib
 
 class all_data:
     def __init__(self):
@@ -423,37 +423,37 @@ def main():
     elif dropdown == 'Results':
         st.markdown('### Results')
         show_results()
-    elif dropdown == 'Predcit':
-        st.write('### Predcit')
-        loaded_model = joblib.load('./model/classifier_model')
-        # create a testvar and put the first element in df to testvar
-        age = st.slider('Age in months', 0, 60, 1)
-        total_childeren = st.slider('Total Childerens', 0, 6, 1)
-        place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
-        if place_of_delivery == 'Delivery at Health Fascilities':
-            place_of_delivery = 1
-        elif place_of_delivery == 'Delivery outside of Health Fascilities':
-            place_of_delivery = 0
-        contraceptive_use = st.selectbox('Contraceptive_use', ['No', 'Yes'])
-        if contraceptive_use == 'No':
-            contraceptive_use = 0
-        elif contraceptive_use == 'Yes':
-            contraceptive_use = 1
-        preciding_bith_interval = st.slider('Preciding_bith_interval in month', 9, 200, 1)
-        highest_ed = st.selectbox('Highest Education', ['No education', 'Primary', 'Secondary', 'Higher'])
-        if highest_ed == 'No education':
-            highest_ed = 0
-        elif highest_ed == 'Primary':
-            highest_ed = 1
-        elif highest_ed == 'Secondary':
-            highest_ed = 2
-        else:
-            highest_ed = 3
-        if st.button('Predict'):
-            testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
-            testvar = np.array(testvar).reshape(1, -1)
-            st.write(loaded_model.predict(testvar))
-            st.write(loaded_model.predict_proba(testvar))
+    # elif dropdown == 'Predcit':
+        # st.write('### Predcit')
+        # loaded_model = joblib.load('./model/classifier_model')
+        # # create a testvar and put the first element in df to testvar
+        # age = st.slider('Age in months', 0, 60, 1)
+        # total_childeren = st.slider('Total Childerens', 0, 6, 1)
+        # place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
+        # if place_of_delivery == 'Delivery at Health Fascilities':
+        #     place_of_delivery = 1
+        # elif place_of_delivery == 'Delivery outside of Health Fascilities':
+        #     place_of_delivery = 0
+        # contraceptive_use = st.selectbox('Contraceptive_use', ['No', 'Yes'])
+        # if contraceptive_use == 'No':
+        #     contraceptive_use = 0
+        # elif contraceptive_use == 'Yes':
+        #     contraceptive_use = 1
+        # preciding_bith_interval = st.slider('Preciding_bith_interval in month', 9, 200, 1)
+        # highest_ed = st.selectbox('Highest Education', ['No education', 'Primary', 'Secondary', 'Higher'])
+        # if highest_ed == 'No education':
+        #     highest_ed = 0
+        # elif highest_ed == 'Primary':
+        #     highest_ed = 1
+        # elif highest_ed == 'Secondary':
+        #     highest_ed = 2
+        # else:
+        #     highest_ed = 3
+        # if st.button('Predict'):
+        #     testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
+        #     testvar = np.array(testvar).reshape(1, -1)
+        #     st.write(loaded_model.predict(testvar))
+        #     st.write(loaded_model.predict_proba(testvar))
     elif dropdown == 'EDA':
         st.markdown('### Exploratory Data Analysis')
         correlation_matrix(all_data.read_corr())
