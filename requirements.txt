@@ -1,9 +1,9 @@
-pandas<1.2.0
-xlrd<2.0
-streamlit==0.74.1
-plotly==4.14.3
+pandas
+xlrd
+streamlit
+plotly
 seaborn
-Pillow==8.1.2
-matplotlib==3.1.1
-joblib==0.13.2
+Pillow
+matplotlib
+joblib
 
