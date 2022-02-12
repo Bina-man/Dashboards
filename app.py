@@ -5,7 +5,7 @@ import seaborn as sns
 from utils.features import *
 from utils.models import *
 import numpy as np
-# import joblib
+import joblib
 
 class all_data:
     def __init__(self):
@@ -145,7 +145,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -154,7 +153,7 @@ def show_results():
                     'age']
             value = [0.00248893, 0.00162279, 0.21864789, 0.00160378, 0.00747543,
                     0.05029216, 0.06618739, 0.0044109 , 0.0009565 , 0.00825019,
-                    0.00733631, 0.00139968, 0.01394231, 0.00554112, 0.00283784,
+                    0.00733631, 0.00139968, 0.00554112, 0.00283784,
                     0.00967358, 0.00742899, 0.00596421, 0.58394]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -171,7 +170,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -179,7 +177,7 @@ def show_results():
                     'Mediaexposure']
             value = [0.00575667, 0.00480238, 0.51024392, 0.00397095, 0.02203449,
                     0.12426632, 0.18566448, 0.01075796, 0.00316215, 0.01815575,
-                    0.02125358, 0.00368085, 0.03154911, 0.0114833 , 0.00539888,
+                    0.02125358, 0.00368085, 0.0114833 , 0.00539888,
                     0.01489044, 0.01251673, 0.01041205]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -196,7 +194,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -205,7 +202,7 @@ def show_results():
                     'age']
             value = [0.01890436, 0.0100456 , 0.18065244, 0.02054358, 0.03191504,
                     0.05067764, 0.03781533, 0.02703498, 0.01344586, 0.02132381,
-                    0.01946213, 0.01261234, 0.03564634, 0.02768292, 0.01637699,
+                    0.01946213, 0.01261234,  0.02768292, 0.01637699,
                     0.03826184, 0.02883448, 0.02537146, 0.38339284]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -222,7 +219,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -230,7 +226,7 @@ def show_results():
                     'Mediaexposure']
             value = [0.02312679, 0.03162296, 0.37141356, 0.0279589 , 0.03996997,
                     0.06859119, 0.06028451, 0.03949566, 0.0232997 , 0.03432206,
-                    0.02745046, 0.03267637, 0.03903816, 0.04441945, 0.02808973,
+                    0.02745046, 0.03267637, 0.04441945, 0.02808973,
                     0.02511491, 0.05675178, 0.02637392]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -249,7 +245,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -258,8 +253,7 @@ def show_results():
                     'age']
             value = [3.28409886e-03, 2.45556319e-03, 2.40633496e-01, 1.72564929e-03,
                     1.00915070e-02, 5.26607934e-02, 6.75481399e-02, 6.52129089e-03,
-                    8.06661148e-04, 7.73073786e-03, 8.36168538e-03, 3.40182630e-04,
-                    1.33735678e-02, 1.23620818e-03, 6.61443354e-04, 3.91043195e-03,
+                    8.06661148e-04, 7.73073786e-03, 8.36168538e-03, 3.40182630e-04, 1.23620818e-03, 6.61443354e-04, 3.91043195e-03,
                     7.66269631e-03, 1.41043598e-03, 5.69585410e-01]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -276,7 +270,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -284,7 +277,7 @@ def show_results():
                     'Mediaexposure']
             value = [0.00696809, 0.00781772, 0.52102941, 0.00371032, 0.0249815 ,
                     0.12528112, 0.19942863, 0.01504861, 0.00265252, 0.01656583,
-                    0.01842359, 0.00063972, 0.03023446, 0.00284251, 0.00169945,
+                    0.01842359, 0.00063972, 0.00284251, 0.00169945,
                     0.00517499, 0.01371196, 0.00378957]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -301,7 +294,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -310,7 +302,7 @@ def show_results():
                     'age']
             value = [0.02048751, 0.02059695, 0.1710822 , 0.0221486 , 0.03821605,
                     0.04928231, 0.04065862, 0.03674648, 0.01840717, 0.02287741,
-                    0.02336911, 0.0163441 , 0.03586599, 0.01894557, 0.0187406 ,
+                    0.02336911, 0.0163441 , 0.01894557, 0.0187406 ,
                     0.04268981, 0.03703905, 0.02104646, 0.34545597]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -327,7 +319,6 @@ def show_results():
                     'childSize',
                     'WealthQuantile',
                     'prev_termin_pregnancy',
-                    'Year',
                     'Toiletfascility',
                     'HandwashFascility',
                     'Place_of_delivery',
@@ -335,7 +326,7 @@ def show_results():
                     'Mediaexposure']
             value = [0.02909926, 0.02814793, 0.33333072, 0.0269317 , 0.05487187,
                     0.07157773, 0.06127196, 0.05252262, 0.02581846, 0.0376559 ,
-                    0.03707837, 0.02400167, 0.03929391, 0.02809054, 0.02526036,
+                    0.03707837, 0.02400167, 0.02809054, 0.02526036,
                     0.0332862 , 0.05963827, 0.03212255]
             feature_importance_dict = dict(zip(key, value))
             feature_importance(feature_importance_dict)
@@ -348,7 +339,7 @@ def main():
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
         st.title('Under 5 Mortality ')
         st.markdown('This app shows the under 5 mortality rate in the Ethiopia based on EDHS dataset.')
-        st.markdown('**Data Source:** [World Health Organization](https://dhsprogram.com/)')
+        st.markdown('**Data Source:** [Ethiopian Public Health Institute](https://dhsprogram.com/)')
         st.subheader('Background')
         st.write("""
         A substantial reduction in Child mortality has been achieved across the globe.
@@ -360,12 +351,12 @@ def main():
         """)
         st.subheader('Objective')
         st.write("""
-        Various studies have been conducted for the case of Ethiopia. In this study,
-         we aim to identify various Socioeconomic, Demographic, WASH (Environmental) 
-         and clinical parameters as attributing factors for Child mortality using advanced
-          Machine Learning algorithms. IT aims mainly in identify feature-importance of these risk factors.
-           Therefore, this study can be helpful for policymakers to design effective multi-sectoral interventions
-           to reduce child mortality rate.
+        Various studies have been conducted for the case of Ethiopia. In this study, 
+        we aim to identify various socioeconomic, demographic, and WASH (Environmental) 
+        as attributing factors for child mortality using advanced Machine Learning algorithms. 
+        It aims mainly to identify the feature-importance of these risk factors. 
+        Therefore, this study can be helpful for policymakers to design effective multi-sectoral
+         interventions to reduce the child mortality rate.
         """)
 
 
@@ -373,7 +364,7 @@ def main():
 
     elif dropdown == 'Data Highlights':
         df = all_data.read_data()
-        btn = st.selectbox('Select an what to see about the data', ["Baisc information", 'Years', 'Study Selected features'])
+        btn = st.selectbox('Select a parameter to see details of the data', ["Basic information", 'Years', 'Study Selected features'])
         if btn == "Baisc information":
             st.dataframe(df.head(20))
             # adv_btn = st.checkbox('Show Advanced Information')
@@ -423,37 +414,37 @@ def main():
     elif dropdown == 'Results':
         st.markdown('### Results')
         show_results()
-    # elif dropdown == 'Predcit':
-        # st.write('### Predcit')
-        # loaded_model = joblib.load('./model/classifier_model')
-        # # create a testvar and put the first element in df to testvar
-        # age = st.slider('Age in months', 0, 60, 1)
-        # total_childeren = st.slider('Total Childerens', 0, 6, 1)
-        # place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
-        # if place_of_delivery == 'Delivery at Health Fascilities':
-        #     place_of_delivery = 1
-        # elif place_of_delivery == 'Delivery outside of Health Fascilities':
-        #     place_of_delivery = 0
-        # contraceptive_use = st.selectbox('Contraceptive_use', ['No', 'Yes'])
-        # if contraceptive_use == 'No':
-        #     contraceptive_use = 0
-        # elif contraceptive_use == 'Yes':
-        #     contraceptive_use = 1
-        # preciding_bith_interval = st.slider('Preciding_bith_interval in month', 9, 200, 1)
-        # highest_ed = st.selectbox('Highest Education', ['No education', 'Primary', 'Secondary', 'Higher'])
-        # if highest_ed == 'No education':
-        #     highest_ed = 0
-        # elif highest_ed == 'Primary':
-        #     highest_ed = 1
-        # elif highest_ed == 'Secondary':
-        #     highest_ed = 2
-        # else:
-        #     highest_ed = 3
-        # if st.button('Predict'):
-        #     testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
-        #     testvar = np.array(testvar).reshape(1, -1)
-        #     st.write(loaded_model.predict(testvar))
-        #     st.write(loaded_model.predict_proba(testvar))
+    elif dropdown == 'Predcit':
+        st.write('### Predcit')
+        loaded_model = joblib.load('./model/classifier_model')
+        # create a testvar and put the first element in df to testvar
+        age = st.slider('Age in months', 0, 60, 1)
+        total_childeren = st.slider('Total Childerens', 0, 6, 1)
+        place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
+        if place_of_delivery == 'Delivery at Health Fascilities':
+            place_of_delivery = 1
+        elif place_of_delivery == 'Delivery outside of Health Fascilities':
+            place_of_delivery = 0
+        contraceptive_use = st.selectbox('Contraceptive_use', ['No', 'Yes'])
+        if contraceptive_use == 'No':
+            contraceptive_use = 0
+        elif contraceptive_use == 'Yes':
+            contraceptive_use = 1
+        preciding_bith_interval = st.slider('Preciding_bith_interval in month', 9, 200, 1)
+        highest_ed = st.selectbox('Highest Education', ['No education', 'Primary', 'Secondary', 'Higher'])
+        if highest_ed == 'No education':
+            highest_ed = 0
+        elif highest_ed == 'Primary':
+            highest_ed = 1
+        elif highest_ed == 'Secondary':
+            highest_ed = 2
+        else:
+            highest_ed = 3
+        if st.button('Predict'):
+            testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
+            testvar = np.array(testvar).reshape(1, -1)
+            st.write(loaded_model.predict(testvar))
+            st.write(loaded_model.predict_proba(testvar))
     elif dropdown == 'EDA':
         st.markdown('### Exploratory Data Analysis')
         correlation_matrix(all_data.read_corr())
