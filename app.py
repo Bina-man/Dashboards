@@ -358,10 +358,6 @@ def main():
         Therefore, this study can be helpful for policymakers to design effective multi-sectoral
          interventions to reduce the child mortality rate.
         """)
-
-
-
-
     elif dropdown == 'Data Highlights':
         df = all_data.read_data()
         btn = st.selectbox('Select a parameter to see details of the data', ["Basic information", 'Years', 'Study Selected features'])
@@ -414,7 +410,7 @@ def main():
     elif dropdown == 'Results':
         st.markdown('### Results')
         show_results()
-    elif dropdown == 'Predcit':
+    elif dropdown == 'Predict':
         st.write('### Predcit')
         loaded_model = joblib.load('./model/classifier_model')
         # create a testvar and put the first element in df to testvar

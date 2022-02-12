@@ -6,4 +6,5 @@ seaborn
 Pillow
 matplotlib
 joblib
+Xgboost
 
