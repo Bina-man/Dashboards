@@ -34,17 +34,36 @@ class all_data:
         val = val.iloc[:, 1:]
         return val
 
-def missing_bar_chart():
-    #Creating the dataset
-    data = all_data.missing_values()
-    Courses = list(data.keys())
-    values = list(data.values())
 
-    fig = plt.figure(figsize = (10, 5))
-    plt.bar(Courses, values)
-    plt.xlabel("Programming Environment")
-    plt.ylabel("Number of Students")
-    plt.title("Students enrolled in different courses")
+def missing_bar_chart():
+    fig = plt.figure(figsize = (10, 7))
+    ax = fig.add_subplot(111)
+    models = ["Logistic regression", "Random forest", "XGBoost", "Neural Network",
+            "Logistic regression", "Random forest", "XGBoost", "Neural Network",
+            "Logistic regression", "Random forest", "XGBoost", "Neural Network",
+            "Logistic regression", "Random forest", "XGBoost", "Neural Network"]
+    acc = [ 0.75, 0.80, 0.85, 0.81, 
+            0.77, 0.79, 0.84, 0.78,
+            0.76, 0.81, 0.88, 0.80, 
+            0.75, 0.80, 0.82, 0.80]
+    param = ["Survived","Survived","Survived","Survived",
+            "Died","Died","Died","Died",
+            "Survived","Survived","Survived","Survived", 
+            "Died","Died","Died","Died"]
+    imputation = ["Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)",
+            "Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)",
+            "Iterative Imputation","Iterative Imputation","Iterative Imputation","Iterative Imputation",
+            "Iterative Imputation","Iterative Imputation","Iterative Imputation","Iterative Imputation"]
+
+
+    #change models, acc_death_iterative, acc_survival_iterative, acc_death_non_iterative, acc_survival_non_iterative to a dataframe
+    df = pd.DataFrame({ 'Models': models, 'Param': param, 'Accuracy': acc, 'Imputation':imputation})
+    ax = sns.pointplot(x="Models", y="Accuracy", hue='Imputation' , data=df, markers=["o", "x"],
+                   linestyles=["-", "--"], )
+    # sns.barplot(x=models, y=acc_death_iterative, color="red", label="Death")
+    plt.xlabel("Models")
+    plt.ylabel("Accuracy")
+    plt.title("Accuracy of models the corresponding models for death and survive each")
     st.pyplot(fig)
 
 def correlation_matrix(data):
@@ -333,7 +352,7 @@ def show_results():
 
 def main():
     st.sidebar.title('Select a page')
-    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','EDA','Strategies','Results' ,'Predcit','About Us'])
+    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict','About Us'])
     df = all_data.read_data()
     if dropdown == 'Home':
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
@@ -359,15 +378,16 @@ def main():
          interventions to reduce the child mortality rate.
         """)
     elif dropdown == 'Data Highlights':
-        df = all_data.read_data()
         btn = st.selectbox('Select a parameter to see details of the data', ["Basic information", 'Years', 'Study Selected features'])
         if btn == "Baisc information":
-            st.dataframe(df.head(20))
-            # adv_btn = st.checkbox('Show Advanced Information')
-            # if adv_btn:
-            #     st.subheader('Advanced Information')
-            #     st.table(df.describe())
-            #     st.subheader('Missing values')
+            var = all_data.read_data().head(20)
+            print(var)
+            st.dataframe(var)
+            adv_btn = st.checkbox('Show Advanced Information')
+            if adv_btn:
+                st.subheader('Advanced Information')
+                st.table(df.describe())
+                st.subheader('Missing values')
                 
         elif btn == 'Years':
             st.subheader('The data is available for the years 2000 - 2019')
@@ -386,20 +406,11 @@ def main():
     elif dropdown == 'Strategies':
         st.markdown('### Strategies')
         if st.checkbox('Imputation of missing values'):
-            st.markdown('#### Imputation of missing values')
-            st.markdown('The missing values were imputed using the two baisc strategies and the corresping results were provided below:')
-            result = [
-            ["Imputation Strategy", "Logistic Regression accuracy", "Random forest classifier score" , "XGBOOST","Neural Network result" ], 
-            ["Ordinary Mean | Median","0.0  0.0", "0.0  0.0" , "0.0  0.0" , "0.0  0.0"],
-            ["Iterative Imputer", "0.0", "0.0","0.0  0.0", "0.0  0.0",  "0.0  0.0"]]
-            st.table(result)
-            st.warning('**Note:** You can see the VIF score below')
-            st.image('./assets/VIF.png', width=300,  use_column_width=True)
+            st.markdown('#### Imputation of missing values and corresponding results')
+            st.write('The missing values were imputed using mode for the categorical variables and mean|median for the numerical variables based on the skewness of the data columns ')
+            missing_bar_chart()
         if st.checkbox('Balancing strategies used'):
-            balancing_strategies = ["Over_sample", "Under_sample", "SMOTE", "ADASYN"]
-            st.markdown('#### Since the target variable is so much unbalanced we used these strategies to balance the data')
-            for i in balancing_strategies:
-                st.markdown(i)   
+            st.markdown('###### Since the target variable (Died_Survived) is so much unbalanced 3370 died and 44,731 survived we used Oversampling for the analysis')
         if st.checkbox('Models used'):
             models = [["Logistic Regression accuracy", " - ", {0:90, 1:89}, "guide"], ["Random Forest classfier", " - ", {0:90, 1:89}, "guide"]
             , ["XGBOOST", " - ", {0:90, 1:89}, "guide"], ["Neural Network", " - ", {0:90, 1:89}, "guide"]]
@@ -441,9 +452,9 @@ def main():
             testvar = np.array(testvar).reshape(1, -1)
             st.write(loaded_model.predict(testvar))
             st.write(loaded_model.predict_proba(testvar))
-    elif dropdown == 'EDA':
-        st.markdown('### Exploratory Data Analysis')
-        correlation_matrix(all_data.read_corr())
+    # elif dropdown == 'EDA':
+    #     st.markdown('### Exploratory Data Analysis')
+    #     correlation_matrix(all_data.read_corr())
     elif dropdown == 'About Us':
         st.markdown('### About')
 main()
