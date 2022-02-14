@@ -1,9 +1,7 @@
 pandas
-xlrd
 streamlit
 plotly
 seaborn
-Pillow
 matplotlib
 joblib
 Xgboost

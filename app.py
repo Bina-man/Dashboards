@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from utils.features import *
-from utils.models import *
 import numpy as np
 import joblib
 
@@ -201,7 +200,7 @@ def show_results():
 
 def main():
     st.sidebar.title('Select a page')
-    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'EDA','Predict','About Us'])
+    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict','About Us'])
     df = all_data.read_data()
     if dropdown == 'Home':
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
@@ -260,13 +259,13 @@ def main():
             missing_bar_chart()
         if st.checkbox('Balancing strategies used'):
             st.markdown('###### Since the target variable (Died_Survived) is so much unbalanced 3370 died and 44,731 survived we used Oversampling for the analysis')
-        if st.checkbox('Models used'):
-            models = [["Logistic Regression accuracy", " - ", {0:90, 1:89}, "guide"], ["Random Forest classfier", " - ", {0:90, 1:89}, "guide"]
-            , ["XGBOOST", " - ", {0:90, 1:89}, "guide"], ["Neural Network", " - ", {0:90, 1:89}, "guide"]]
-            st.markdown('#### Models used')
-            for i in models:
-                print(i)
-                display_models(i)      
+        # if st.checkbox('Models used'):
+        #     # models = [["Logistic Regression accuracy", " - ", {0:90, 1:89}, "guide"], ["Random Forest classfier", " - ", {0:90, 1:89}, "guide"]
+        #     , ["XGBOOST", " - ", {0:90, 1:89}, "guide"], ["Neural Network", " - ", {0:90, 1:89}, "guide"]]
+        #     st.markdown('#### Models used')
+        #     for i in models:
+                # print(i)
+                # display_models(i)      
     elif dropdown == 'Results':
         st.markdown('### Results')
         show_results()
@@ -311,9 +310,9 @@ def main():
                 st.error("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][0]*100))+ "% chance of dying")
                 # st.success("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][1]*100))+ "% chance of living")
                  
-    elif dropdown == 'EDA':
-        st.markdown('### Exploratory Data Analysis')
-        correlation_matrix(all_data.read_corr())
+    # elif dropdown == 'EDA':
+    #     st.markdown('### Exploratory Data Analysis')
+    #     correlation_matrix(all_data.read_corr())
     elif dropdown == 'About Us':
         st.markdown('### About')
 main()
