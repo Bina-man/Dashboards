@@ -5,13 +5,16 @@ import seaborn as sns
 from utils.features import *
 import numpy as np
 import joblib
+import pandas_profiling
+from streamlit_pandas_profiling import st_profile_report
+from pandas_profiling import ProfileReport
 
 class all_data:
     def __init__(self):
         pass
 
     def read_data():
-        # df = pd.read_csv('../../data/processed/edhs/Unimputed_CHM_1.csv')
+        # df = pd.read_csv('./data/Unimputed_CHM_1.csv')
         df = pd.read_csv('./data/sample_edhs.csv')
         df.drop(['Unnamed: 0'], axis=1, inplace=True)
         return df
@@ -101,12 +104,11 @@ def missing_bar_chart():
     plt.title("Accuracy of models the corresponding models for death and survive each")
     st.pyplot(fig)
 
-def correlation_matrix(data):
-    fig = plt.figure(figsize = (10, 5))
-    sns.heatmap(data, annot=True, cmap='RdYlGn', linewidths=0.5)
-    plt.title('Correlation Matrix')
-    st.pyplot(fig)
-
+def eda():
+    st.title("Exploratory Data Analysis")
+    st.markdown('**See the Exploratory data analysis here** [eda](https://jurassicmineral.000webhostapp.com/)')
+    
+    
 def feature_importance_bar(data):
     Courses = list(data.keys())
     values = list(data.values())
@@ -216,7 +218,7 @@ def show_results():
 
 def main():
     st.sidebar.title('Select a page')
-    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict'])
+    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','EDA','Strategies','Results' ,'Predict'])
     
     if dropdown == 'Home':
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
@@ -329,9 +331,9 @@ def main():
                 st.error("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][0]*100))+ "% chance of dying")
                 # st.success("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][1]*100))+ "% chance of living")
                  
-    # elif dropdown == 'EDA':
-    #     st.markdown('### Exploratory Data Analysis')
-    #     correlation_matrix(all_data.read_corr())
+    elif dropdown == 'EDA':
+        st.markdown('### Exploratory Data Analysis')
+        eda()
     # elif dropdown == 'About Us':
     #     st.markdown('### About')
 main()
