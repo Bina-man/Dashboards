@@ -71,8 +71,6 @@ class all_data:
         val = val.iloc[:, 1:]
         return val
 
-
-
 def missing_bar_chart():
     fig = plt.figure(figsize = (10, 7))
     ax = fig.add_subplot(111)
@@ -92,7 +90,6 @@ def missing_bar_chart():
             "Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)","Ordinary (Median | Mode)",
             "Iterative Imputation","Iterative Imputation","Iterative Imputation","Iterative Imputation",
             "Iterative Imputation","Iterative Imputation","Iterative Imputation","Iterative Imputation"]
-
 
     #change models, acc_death_iterative, acc_survival_iterative, acc_death_non_iterative, acc_survival_non_iterative to a dataframe
     df = pd.DataFrame({ 'Models': models, 'Param': param, 'Accuracy': acc, 'Imputation':imputation})
@@ -159,8 +156,7 @@ def show_results():
                     0.03826184, 0.02883448, 0.02537146, 0.38339284]
             feature_importance_dict = dict(zip(key, value))
             feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
-            feature_importance_dict = dict(feature_importance_dict)
-            
+            feature_importance_dict = dict(feature_importance_dict)            
             feature_importance_bar(feature_importance_dict)
 
             st.subheader('Based on the analysis above the age is the dominant factor, we removed age and see which factors are important')
@@ -169,9 +165,9 @@ def show_results():
                     0.06859119, 0.06028451, 0.03949566, 0.0232997 , 0.03432206,
                     0.02745046, 0.03267637, 0.04441945, 0.02808973,
                     0.02511491, 0.05675178, 0.02637392]
+            feature_importance_dict = dict(zip(key, value))
             feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
             feature_importance_dict = dict(feature_importance_dict)
-            feature_importance_dict = dict(zip(key, value))
             feature_importance_bar(feature_importance_dict)
     elif imputation == 'Ordinary Mean | Mode':
         model = st.selectbox('Select Model', ['Random Forest', 'XGBoost'])
@@ -220,8 +216,8 @@ def show_results():
 
 def main():
     st.sidebar.title('Select a page')
-    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict','About Us'])
-    df = all_data.read_data()
+    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict'])
+    
     if dropdown == 'Home':
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
         st.title('Under 5 Mortality ')
@@ -246,17 +242,9 @@ def main():
          interventions to reduce the child mortality rate.
         """)
     elif dropdown == 'Data Highlights':
-        btn = st.selectbox('Select a parameter to see details of the data', ["Basic information", 'Years', 'Study Selected features'])
-        if btn == "Baisc information":
-           
-            st.dataframe(df)
-            adv_btn = st.checkbox('Show Advanced Information')
-            if adv_btn:
-                st.subheader('Advanced Information')
-                st.table(df.describe())
-                st.subheader('Missing values')
-                
-        elif btn == 'Years':
+        st.write('This section will show the data highlights. This includes the years used and the selected features. The DHS data has multiple years and features. The years and features used in this app are shown in this category.')
+        btn = st.selectbox('Select a parameter to see details of the data', [ 'Years', 'Study Selected features'])
+        if btn == 'Years':
             st.subheader('The data is available for the years 2000 - 2019')
             st.write('The data is available for the years 2000 - 2019, but the analysis is made for five years as described below.')
             st.success('**2000               Used**')
@@ -276,7 +264,7 @@ def main():
         st.markdown('### Strategies')
         if st.checkbox('Imputation of missing values'):
             st.markdown('#### Imputation of missing values and corresponding results')
-            st.write('The missing values were imputed using mode for the categorical variables and mean|median for the numerical variables based on the skewness of the data columns ')
+            st.write('The missing values were imputed using mode for the categorical variables and mean|median for the numerical variables based on the skewness of the data columns.')
             missing_bar_chart()
         if st.checkbox('Balancing strategies used'):
             # create an html with h3 tags as a markdown
@@ -298,8 +286,8 @@ def main():
         st.write('### Predict')
         loaded_model = joblib.load('./model/classifier_model')
         # create a testvar and put the first element in df to testvar
-        age = st.slider('Age in months', 0, 60, 1)
-        total_childeren = st.slider('Total number of Childeren (6 to mean 6 and above)', 0, 6, 1)
+        age = st.slider('Age in months', 0, 60, 0)
+        total_childeren = st.slider('Total number of Childeren (6 to mean 6 and above)', 0, 6, 0)
         place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
         if place_of_delivery == 'Delivery at Health Fascilities':
             place_of_delivery = 1
@@ -310,7 +298,7 @@ def main():
             contraceptive_use = 0
         elif contraceptive_use == 'Yes':
             contraceptive_use = 1
-        preciding_bith_interval = st.slider('Preceeding Birth Interval in Months', 9, 200, 1)
+        preciding_bith_interval = st.slider('Preceeding Birth Interval in Months', 9, 60, 9)
         highest_ed = st.selectbox('Mother\'s Highest Education ', ['No education', 'Primary', 'Secondary', 'Higher'])
         if highest_ed == 'No education':
             highest_ed = 0
@@ -330,7 +318,7 @@ def main():
             font-size: 40px; }
         </style>""", unsafe_allow_html=True)
         if st.button('Predict'):
-            testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
+            testvar = [age+2, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
             testvar = np.array(testvar).reshape(1, -1)
             if loaded_model.predict_proba(testvar)[0][0]*100 < 50:
                 st.success('The child has high probablity to survive')
@@ -344,8 +332,8 @@ def main():
     # elif dropdown == 'EDA':
     #     st.markdown('### Exploratory Data Analysis')
     #     correlation_matrix(all_data.read_corr())
-    elif dropdown == 'About Us':
-        st.markdown('### About')
+    # elif dropdown == 'About Us':
+    #     st.markdown('### About')
 main()
 
 
