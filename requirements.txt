@@ -3,6 +3,6 @@ streamlit
 plotly
 seaborn
 matplotlib
-joblib
+joblib==1.0.1
 Xgboost
 
