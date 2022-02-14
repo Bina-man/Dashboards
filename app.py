@@ -137,6 +137,8 @@ def show_results():
                     0.00733631, 0.00139968, 0.00554112, 0.00283784,
                     0.00967358, 0.00742899, 0.00596421, 0.58394]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
             feature_importance_bar(feature_importance_dict)
             st.subheader('Based on the analysis above the age is the dominant factor, we removed age and see which factors are important')
             key =  all_data.keys_withoutAge()
@@ -145,6 +147,8 @@ def show_results():
                     0.02125358, 0.00368085, 0.0114833 , 0.00539888,
                     0.01489044, 0.01251673, 0.01041205]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
             feature_importance_bar(feature_importance_dict)
 
         elif model == 'XGBoost':
@@ -154,13 +158,19 @@ def show_results():
                     0.01946213, 0.01261234,  0.02768292, 0.01637699,
                     0.03826184, 0.02883448, 0.02537146, 0.38339284]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
+            
             feature_importance_bar(feature_importance_dict)
+
             st.subheader('Based on the analysis above the age is the dominant factor, we removed age and see which factors are important')
             key =  all_data.keys_withoutAge()
             value = [0.02312679, 0.03162296, 0.37141356, 0.0279589 , 0.03996997,
                     0.06859119, 0.06028451, 0.03949566, 0.0232997 , 0.03432206,
                     0.02745046, 0.03267637, 0.04441945, 0.02808973,
                     0.02511491, 0.05675178, 0.02637392]
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
             feature_importance_dict = dict(zip(key, value))
             feature_importance_bar(feature_importance_dict)
     elif imputation == 'Ordinary Mean | Mode':
@@ -172,6 +182,9 @@ def show_results():
                     8.06661148e-04, 7.73073786e-03, 8.36168538e-03, 3.40182630e-04, 1.23620818e-03, 6.61443354e-04, 3.91043195e-03,
                     7.66269631e-03, 1.41043598e-03, 5.69585410e-01]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
+            
             feature_importance_bar(feature_importance_dict)
             st.subheader('Based on the analysis above the age is the dominant factor, we removed age and see which factors are important')
             key =  all_data.keys_withoutAge()
@@ -180,6 +193,8 @@ def show_results():
                     0.01842359, 0.00063972, 0.00284251, 0.00169945,
                     0.00517499, 0.01371196, 0.00378957]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
             feature_importance_bar(feature_importance_dict)
         elif model == 'XGBoost':
             key =  all_data.keys_withAge()
@@ -188,6 +203,9 @@ def show_results():
                     0.02336911, 0.0163441 , 0.01894557, 0.0187406 ,
                     0.04268981, 0.03703905, 0.02104646, 0.34545597]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
+            
             feature_importance_bar(feature_importance_dict)
             st.subheader('Based on the analysis above the age is the dominant factor, we removed age and see which factors are important')
             key =  all_data.keys_withoutAge()
@@ -196,6 +214,8 @@ def show_results():
                     0.03707837, 0.02400167, 0.02809054, 0.02526036,
                     0.0332862 , 0.05963827, 0.03212255]
             feature_importance_dict = dict(zip(key, value))
+            feature_importance_dict = sorted(feature_importance_dict.items(), key=lambda kv: kv[1], reverse=True)
+            feature_importance_dict = dict(feature_importance_dict)
             feature_importance_bar(feature_importance_dict)
 
 def main():
@@ -258,7 +278,9 @@ def main():
             st.write('The missing values were imputed using mode for the categorical variables and mean|median for the numerical variables based on the skewness of the data columns ')
             missing_bar_chart()
         if st.checkbox('Balancing strategies used'):
-            st.markdown('###### Since the target variable (Died_Survived) is so much unbalanced 3370 died and 44,731 survived we used Oversampling for the analysis')
+            # create an html with h3 tags as a markdown
+            st.markdown('#### Balancing strategies used')
+            st.markdown('###### Since the target variable (Died_Survived) is so much unbalanced 3370 died and 44,731 survived we used SMOTE Oversampling for the analysis')
         # if st.checkbox('Models used'):
         #     # models = [["Logistic Regression accuracy", " - ", {0:90, 1:89}, "guide"], ["Random Forest classfier", " - ", {0:90, 1:89}, "guide"]
         #     , ["XGBOOST", " - ", {0:90, 1:89}, "guide"], ["Neural Network", " - ", {0:90, 1:89}, "guide"]]
@@ -270,6 +292,8 @@ def main():
         st.markdown('### Results')
         show_results()
     elif dropdown == 'Predict':
+        # create a markdown button
+
         st.write('### Predict')
         loaded_model = joblib.load('./model/classifier_model')
         # create a testvar and put the first element in df to testvar
@@ -295,9 +319,15 @@ def main():
             highest_ed = 2
         else:
             highest_ed = 3
-        # m = st.markdown('''
-        # <div style="text-align: center;"></div>
-        # ''')
+        m = st.markdown(""" 
+        <style> div.stButton > button:first-child { background-color: green; width: 50%;border: 3px solid green;
+            padding: 10px;
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 40px; }
+        </style>""", unsafe_allow_html=True)
         if st.button('Predict'):
             testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
             testvar = np.array(testvar).reshape(1, -1)
