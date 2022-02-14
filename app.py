@@ -201,7 +201,7 @@ def show_results():
 
 def main():
     st.sidebar.title('Select a page')
-    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'Predict','About Us'])
+    dropdown = st.sidebar.selectbox('Pages', ['Home', 'Data Highlights','Strategies','Results' ,'EDA','Predict','About Us'])
     df = all_data.read_data()
     if dropdown == 'Home':
         st.image('./assets/Logo.jpg', width=300,  use_column_width=True)
@@ -271,11 +271,11 @@ def main():
         st.markdown('### Results')
         show_results()
     elif dropdown == 'Predict':
-        st.write('### Predcit')
+        st.write('### Predict')
         loaded_model = joblib.load('./model/classifier_model')
         # create a testvar and put the first element in df to testvar
         age = st.slider('Age in months', 0, 60, 1)
-        total_childeren = st.slider('Total Childerens', 0, 6, 1)
+        total_childeren = st.slider('Total number of Childeren (6 to mean 6 and above)', 0, 6, 1)
         place_of_delivery = st.selectbox('Place of delivery', ['Delivery at Health Fascilities', 'Delivery outside of Health Fascilities'])
         if place_of_delivery == 'Delivery at Health Fascilities':
             place_of_delivery = 1
@@ -286,8 +286,8 @@ def main():
             contraceptive_use = 0
         elif contraceptive_use == 'Yes':
             contraceptive_use = 1
-        preciding_bith_interval = st.slider('Preciding_bith_interval in month', 9, 200, 1)
-        highest_ed = st.selectbox('Highest Education', ['No education', 'Primary', 'Secondary', 'Higher'])
+        preciding_bith_interval = st.slider('Preceeding Birth Interval in Months', 9, 200, 1)
+        highest_ed = st.selectbox('Mother\'s Highest Education ', ['No education', 'Primary', 'Secondary', 'Higher'])
         if highest_ed == 'No education':
             highest_ed = 0
         elif highest_ed == 'Primary':
@@ -296,14 +296,24 @@ def main():
             highest_ed = 2
         else:
             highest_ed = 3
+        # m = st.markdown('''
+        # <div style="text-align: center;"></div>
+        # ''')
         if st.button('Predict'):
             testvar = [age, total_childeren, place_of_delivery, contraceptive_use, preciding_bith_interval, highest_ed]
             testvar = np.array(testvar).reshape(1, -1)
-            st.write(loaded_model.predict(testvar))
-            st.write(loaded_model.predict_proba(testvar))
-    # elif dropdown == 'EDA':
-    #     st.markdown('### Exploratory Data Analysis')
-    #     correlation_matrix(all_data.read_corr())
+            if loaded_model.predict_proba(testvar)[0][0]*100 < 50:
+                st.success('The child has high probablity to survive')
+                # st.success("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][1]*100))+ "% chance of living")
+                st.error("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][0]*100))+ "% chance of dying")
+            else:
+                st.warning('The child has high probablity to die')
+                st.error("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][0]*100))+ "% chance of dying")
+                # st.success("The child has " + str("{:.2f}".format(loaded_model.predict_proba(testvar)[0][1]*100))+ "% chance of living")
+                 
+    elif dropdown == 'EDA':
+        st.markdown('### Exploratory Data Analysis')
+        correlation_matrix(all_data.read_corr())
     elif dropdown == 'About Us':
         st.markdown('### About')
 main()
