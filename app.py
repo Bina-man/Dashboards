@@ -248,9 +248,8 @@ def main():
     elif dropdown == 'Data Highlights':
         btn = st.selectbox('Select a parameter to see details of the data', ["Basic information", 'Years', 'Study Selected features'])
         if btn == "Baisc information":
-            var = all_data.read_data().head(20)
-            print(var)
-            st.dataframe(var)
+           
+            st.dataframe(df)
             adv_btn = st.checkbox('Show Advanced Information')
             if adv_btn:
                 st.subheader('Advanced Information')
@@ -259,6 +258,7 @@ def main():
                 
         elif btn == 'Years':
             st.subheader('The data is available for the years 2000 - 2019')
+            st.write('The data is available for the years 2000 - 2019, but the analysis is made for five years as described below.')
             st.success('**2000               Used**')
             st.success('**2005               Used**')
             st.success('**2011               Used**')
@@ -268,9 +268,10 @@ def main():
         elif btn == 'Study Selected features':
             # st.markdown('The selected features are the following:')
             # display_features(features_selected())
-            st.subheader('Coming soon...')
-            st.warning("Please contact EPHI....")
-            st.markdown('**Ethiopian Public Health Institue:** [EPHI](https://ephi.com/)')   
+            st.subheader('Coming soon...')  
+            st.write('If you want to know more about the dataset, the grouping and the corresponding codes, please contact EPHI') 
+            
+            st.markdown('**Ethiopian Public Health Institue:** [EPHI](https://ephi.com/)')
     elif dropdown == 'Strategies':
         st.markdown('### Strategies')
         if st.checkbox('Imputation of missing values'):
@@ -320,7 +321,7 @@ def main():
         else:
             highest_ed = 3
         m = st.markdown(""" 
-        <style> div.stButton > button:first-child { background-color: green; width: 50%;border: 3px solid green;
+        <style> div.stButton > button:first-child { background-color: #183a1d; width: 50%;border: 3px solid #e1eed;
             padding: 10px;
             text-align: center;
             display: block;
