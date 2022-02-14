@@ -5,9 +5,6 @@ import seaborn as sns
 from utils.features import *
 import numpy as np
 import joblib
-import pandas_profiling
-from streamlit_pandas_profiling import st_profile_report
-from pandas_profiling import ProfileReport
 
 class all_data:
     def __init__(self):
